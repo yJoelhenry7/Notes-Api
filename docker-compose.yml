@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  api:
+    build: .
+    container_name: notes_dev
+    ports:
+      - 8080:8080
+    env_file:
+      - .env
+    command: npm run dev 
+    volumes:
+      - /app
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:5.7.24
+    container_name: notes_mysql
+    env_file:
+      - .env 
+    ports:
+      - "3036:3036"
+    environment:
+      - MYSQL_DATABASE
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_USER
